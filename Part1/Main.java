@@ -1,4 +1,5 @@
 package Part1;
+import java.util.Arrays;
 import java.util.function.Function;
 public class Main {
 
@@ -97,5 +98,6 @@ public class Main {
                 dFunctions[1][0] = Main::dFunk2dx1;
                 dFunctions[1][1] = Main::dFunk2dx2;
                 Double[] x = SNonLE.NewtonMethod(init, functions, dFunctions);
+                System.out.println("Ответ: "+ Arrays.toString(x));
     }
 }
