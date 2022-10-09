@@ -13,7 +13,7 @@ public class SNonLE {
         Double[][] J;
         Double[] tempX = new Double[x.length];
         double delta1, delta2;
-        Double[] dx;
+        Double[] deltaX;
         int value;
         System.out.println("Варианты нахождения матрицы Якоби :)");
         System.out.println("1. Аналитический метод \n2. Разностный метод");
@@ -31,9 +31,9 @@ public class SNonLE {
             } else {
                 J = Jacobean(x, functions);
             }
-            dx = SLAE.GaussMethod(J, residualVector);
+            deltaX = SLAE.GaussMethod(J, residualVector);
             for (int i = 0; i < x.length; i++) {
-                tempX[i] = x[i] + dx[i];
+                tempX[i] = x[i] + deltaX[i];
             }
             delta1 = Math.max(Math.abs(functions[0].apply(x)), Math.abs(functions[1].apply(x)));
             delta2 = Math.max(Math.abs((tempX[0] - x[0]) / ((tempX[0] >= 1) ? tempX[0] : 1)), Math.abs(tempX[1] - x[1])) / ((tempX[1] >= 1) ? tempX[1] : 1);

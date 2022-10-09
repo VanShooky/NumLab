@@ -24,7 +24,7 @@ public class Main {
         return x[0] / (value);
         }
     }
-
+//
     public static Double funk2(Double[] x) {
         return 0.5 * x[0] * x[0] + 2 * x[1] * x[1] - 1;
     }
