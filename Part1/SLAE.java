@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class SLAE {
 
-    public static Double[] GaussMethod(Double[][] matrixA, Double[] matrixB) {
+    public static Double[] gaussMethod(Double[][] matrixA, Double[] matrixB) {
         Double[] matrixX = new Double[matrixB.length];
         forwardElimination(matrixA, matrixB);         
         backSubstitution(matrixA, matrixB, matrixX); 
@@ -80,7 +80,7 @@ public class SLAE {
     }
 
     public static Double RelativeError(Double[][] matrixA, Double[] matrixX) {
-        Double[] matrixX1 = GaussMethod(matrixA, multiplyMatrix(matrixA, matrixX));
+        Double[] matrixX1 = gaussMethod(matrixA, multiplyMatrix(matrixA, matrixX));
         Double[] deltaX = new Double[matrixX.length];
         for (int i = 0; i < matrixX.length; i++) {
             deltaX[i] = matrixX1[i] - matrixX[i];
