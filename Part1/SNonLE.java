@@ -31,7 +31,7 @@ public class SNonLE {
             } else {
                 J = Jacobean(x, functions);
             }
-            deltaX = SLAE.GaussMethod(J, residualVector);
+            deltaX = SLAE.gaussMethod(J, residualVector);
             for (int i = 0; i < x.length; i++) {
                 tempX[i] = x[i] + deltaX[i];
             }
@@ -66,7 +66,7 @@ public class SNonLE {
 
         J[0][0]= (functions[0].apply(temp1) - functions[0].apply(x)) / (M * x[0]);
         J[0][1]= (functions[0].apply(temp2) - functions[0].apply(x)) / (M * x[1]);
-        J[1][0]= (functions[1].apply(temp1) - functions[1].apply(x)) / (M * x[0]);
+        J[1][0]= (functions[1].apply(temp1) - functions[1].apply(x)) / (M  * x[0]);
         J[1][1]= (functions[1].apply(temp2) - functions[1].apply(x)) / (M * x[1]);
  
         return J;
