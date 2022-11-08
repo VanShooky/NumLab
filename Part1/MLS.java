@@ -7,28 +7,25 @@ public class MLS {
     public static final int N = 10;
     public static final int m = 2;
     public static final Double[] data_x = {1.2, 1.82, 3.31, 7.24, 8.92, 9.12, 10.97, 14.45, 22.91, 36.31};
-    public static final int[] data_y = {630, 890, 2350, 3810, 4630, 4820, 5230, 7500, 11800, 19600};
+    public static final Double[] data_y = {630.0, 890.0, 2350.0, 3810.0, 4630.0, 4820.0, 5230.0, 7500.0, 11800.0, 19600.0};
 
     public static void leastSquareMethod(){
         System.out.println("x: " + Arrays.toString(data_x));
         System.out.println("y: " + Arrays.toString(data_y));
-        Double[] powerX = calculatePowerX();
-        //System.out.println(Arrays.toString(powerX));
+
+        Double[] powerX = powerX();
         Double[][] sumX = formSumX(powerX);
-
-        // for(int i = 0; i < sumX.length; i++){
-        //     System.out.println(Arrays.toString(sumX[i]));
-        // }
         Double[] praw = formPraw();
-        // System.out.println(Arrays.toString(praw));
         Double[] coefficients = SLAE.gaussMethod(sumX, praw);
-        Double standardDeviation = calculateStandardDeviation(coefficients);
 
-
+        Double standardDeviation = standardDeviation(coefficients);
+        System.out.println("\ndeviation:" + standardDeviation);
+        Double[] approximationFunc = approximationFunc();
+        System.out.println(Arrays.toString(approximationFunc));
 
     }
 
-    public static Double[] calculatePowerX() {
+    public static Double[] powerX() {
         Double[] powerX = new Double[2 * m];
         Arrays.fill(powerX, (double) 0);
 
@@ -66,22 +63,74 @@ public class MLS {
         return praw;
     } 
 
-    public static Double calculateDispersion(Double[] coefficients){
+    public static Double dispersion(Double[] coefficients){
         Double S = (double) 0, temp;
         for(int i = 0; i < N; i++){
-            temp = (double)data_y[i];
+            temp = data_y[i];
             for(int j = 0; j < m + 1; j++){
-                temp -= coefficients[i] * pow(data_x[i], j);
+                temp -= coefficients[j] * pow(data_x[i], j);
             }
             S += temp * temp;
         }
+        S /= (N * m - 1);
+        // System.out.println("S=" + S);
         return S;
     }
     
-    public static Double calculateStandardDeviation( Double[] coefficients) {
-        Double standardDeviation = sqrt(calculateDispersion(coefficients));
+    public static Double standardDeviation( Double[] coefficients) {
+        Double standardDeviation = sqrt(dispersion(coefficients));
         return standardDeviation;
     }
 
+    public static Double[] approximationFunc(){
+        Double[] func = new Double[N];
+        Double a = calculate_a();
+        Double b = calculate_b();
+        System.out.println("\na = " + a + " b = " + b);
 
+        for(int i = 0; i < N; i++){
+            func[i] = a * data_x[i] + b;
+        }
+        return func;
+    }
+
+    public static Double calculate_a(){
+        Double a;
+        final Double averageXY = average(data_x, data_y);
+        final Double averageX = average(data_x);
+        final Double averageY = average(data_y);
+        final Double averageXX = average(data_x, data_x);
+
+        a = (averageXY - averageX * averageY)/(averageXX - averageX * averageX);
+        return a;
+    }
+
+    public static Double calculate_b(){
+        Double b;
+        final Double averageXY = average(data_x, data_y);
+        final Double averageX = average(data_x);
+        final Double averageY = average(data_y);
+        final Double averageXX = average(data_x, data_x);
+
+        b = (averageY * averageXX - averageX * averageXY)/(averageXX - averageX * averageX);
+        return b;
+    }
+
+    public static Double average(Double[] value){
+        Double average = 0.0;
+        for(int i = 0; i < N; i++){
+            average += value[i];
+        }
+        average /= N;
+        return average;
+    }
+
+    public static Double average(Double[] value1, Double[] value2){
+        Double average = 0.0;
+        for(int i = 0; i < N; i++){
+            average += value1[i] * value2[i];
+        }
+        average /= N;
+        return average;
+    }
 }
