@@ -8,12 +8,6 @@ public class Main {
         
         MLS.leastSquareMethod();    
 
-
-
-
-
-
-
         // Метод Гаусса
         
                     // Double[][] matrixA = {

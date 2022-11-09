@@ -73,7 +73,7 @@ public class MLS {
             S += temp * temp;
         }
         S /= (N * m - 1);
-        // System.out.println("S=" + S);
+                // System.out.println("S=" + S);
         return S;
     }
     
