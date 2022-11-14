@@ -17,19 +17,12 @@ public class MLS {
         Double[][] sumX = formSumX(powerX);
         Double[] praw = formPraw();
         Double[] coefficients = SLAE.gaussMethod(sumX, praw);
-        System.out.println("coefficients:" + Arrays.toString(coefficients));
         Double standardDeviation = standardDeviation(coefficients);
-        System.out.println("\ndeviation:" + standardDeviation);
-        Double[] aproximationFunc = aproximationFunc(coefficients);
-        System.out.println(Arrays.toString(aproximationFunc));
-    }
+        Double[] approximationFunc = approximationFunc(coefficients);
 
-    public static Double[] aproximationFunc(Double[] coefficient){
-        Double[] funk = new Double[N];
-        for(int i = 0; i < N; i++){
-            funk[i] = coefficient[0] + coefficient[1] * data_x[i];
-        }
-        return funk;
+        System.out.println("v: " + Arrays.toString(approximationFunc));
+        System.out.println("\ncoefficients:" + Arrays.toString(coefficients));
+        System.out.println("\ndeviation:" + standardDeviation);
     }
 
     public static Double[] powerX() {
@@ -86,5 +79,13 @@ public class MLS {
     public static Double standardDeviation( Double[] coefficients) {
         Double standardDeviation = sqrt(dispersion(coefficients));
         return standardDeviation;
+    }    
+    
+    public static Double[] approximationFunc(Double[] coefficient){
+        Double[] funk = new Double[N];
+        for(int i = 0; i < N; i++){
+            funk[i] = Math.ceil((coefficient[0] + coefficient[1] * data_x[i]) * 10) / 10;
+        }
+        return funk;
     }
-}
+}    
