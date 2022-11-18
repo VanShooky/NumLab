@@ -17,6 +17,7 @@ public class MLS {
         Double[][] sumX = formSumX(powerX);
         Double[] praw = formPraw();
         Double[] coefficients = SLAE.gaussMethod(sumX, praw);
+
         Double standardDeviation = standardDeviation(coefficients);
         Double[] approximationFunc = approximationFunc(coefficients);
 
@@ -84,7 +85,7 @@ public class MLS {
     public static Double[] approximationFunc(Double[] coefficient){
         Double[] funk = new Double[N];
         for(int i = 0; i < N; i++){
-            funk[i] = Math.ceil((coefficient[0] + coefficient[1] * data_x[i]) * 10) / 10;
+            funk[i] = ceil((coefficient[0] + coefficient[1] * data_x[i]) * 10) / 10;
         }
         return funk;
     }
