@@ -7,15 +7,30 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final double a = 0;
-        final double b = PI / 4;
-        final int n = 1000;
+        final Double[] intervalAB = {0.0, PI / 4};
+        final Double[] intervalX = {0.0, 1.0};
+        final Double[] intervalY = {0.0, 2.0};
+
+        final int n = 2;
+        final int m = 2;
         final double eps1 = 1E-4;
         final double eps2 = 1E-5;
-        double trapezoidIntegral = DefiniteIntegrals.trapezoidalIntegration(a, b, n, eps1);
-        System.out.printf("%.4f", trapezoidIntegral);
-        double SimpsonIntegral = DefiniteIntegrals.SimpsonIntegration(a, b, n, eps1);
-        System.out.printf("%.4f", SimpsonIntegral);
+
+        DefiniteIntegral trapezoid = new DefiniteIntegral();
+        trapezoid.trapezoidalIntegration(intervalAB, n, eps1);
+        System.out.printf("По формуле трапеций:\n%.4f", trapezoid.integral);
+        trapezoid.trapezoidalIntegration(intervalAB, n, eps2);
+        System.out.printf("\n%.5f", trapezoid.integral)
+        ;
+        DefiniteIntegral Simpson = new DefiniteIntegral();
+        Simpson.SimpsonIntegration(intervalAB, n, eps1);
+        System.out.printf("\nПо формуле Симпсона:\n%.4f", Simpson.integral);
+        Simpson.SimpsonIntegration(intervalAB, n, eps2);
+        System.out.printf("\n%.5f", Simpson.integral);
+
+        DefiniteIntegral cubatureSimpson = new DefiniteIntegral();
+        cubatureSimpson.cubatureSimpsonRule(intervalX, intervalY, n, m);
+        System.out.printf("\nПо кубатурной формуле Симпсона:\n%.4f", cubatureSimpson.integral);
 
         
         
