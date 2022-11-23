@@ -4,12 +4,6 @@ import static java.lang.Math.*;
 
 public class DefiniteIntegral {
 
-    public double integral;
-
-    DefiniteIntegral(){
-        this.integral = 0.0;
-    }
-
     public static Double func(double x){
         return (sin(x) + cos(x))/(3 + sin(2 * x));
     }
@@ -18,13 +12,14 @@ public class DefiniteIntegral {
         return x * x + 2 * y;
     }
 
-    public void trapezoidalIntegration(Double[] interval, int n, double EPS){
-        double prev_integral = 0.0;
+    public static Double trapezoidalIntegration(Double[] interval, int n, double EPS){
+        double integral = 0.0, prev_integral = 0.0;
         do{
-            prev_integral = this.integral;
-            this.integral = trapezoidRule(interval, n); 
+            prev_integral = integral;
+            integral = trapezoidRule(interval, n); 
             n *= 2;
-        } while(abs(this.integral - prev_integral) > 3 * EPS);
+        } while(abs(integral - prev_integral) > 3 * EPS);
+        return integral;
     }
 
     public static Double trapezoidRule(Double[] interval, int n) {
@@ -38,13 +33,14 @@ public class DefiniteIntegral {
         return sum;
     } 
 
-    public void SimpsonIntegration(Double[] interval, int n, double EPS){
-        double prev_integral = 0.0;
+    public static Double SimpsonIntegration(Double[] interval, int n, double EPS){
+        double integral = 0.0, prev_integral = 0.0;
         do{
-            prev_integral = this.integral;
-            this.integral = SimpsonRule(interval, n); 
+            prev_integral = integral;
+            integral = SimpsonRule(interval, n); 
             n *= 2;
-        } while(abs(this.integral - prev_integral) > 15 * EPS);
+        } while(abs(integral - prev_integral) > 15 * EPS);
+        return integral;
     }
 
     public static Double SimpsonRule(Double[] interval, int n) {
@@ -62,22 +58,24 @@ public class DefiniteIntegral {
         return sum;
     } 
 
-    public void cubatureSimpsonRule(Double[] intervalX, Double[] intervalY, int n, int m) {     
+    public static Double cubatureSimpsonRule(Double[] intervalX, Double[] intervalY, int n, int m) {   
+        double integral = 0.0;  
         double hX = (intervalX[1] - intervalX[0]) / n;
         double hY = (intervalY[1] - intervalY[0]) / m;
         for(int i = 0; i <= m; i++){
             for(int j = 0; j <= n; j++){
                 if(i % 2 == 0 && j % 2 ==0){
-                    this.integral += func(intervalX[0] + j * hX, intervalY[0] + i * hY);
+                    integral += func(intervalX[0] + j * hX, intervalY[0] + i * hY);
                 }
                 else if(i % 2 != 0 && j % 2 !=0){
-                    this.integral += 16 * func(intervalX[0] + j * hX, intervalY[0] + i * hY);
+                    integral += 16 * func(intervalX[0] + j * hX, intervalY[0] + i * hY);
                 }
                 else{
-                    this.integral += 4 * func(intervalX[0] + j * hX, intervalY[0] + i * hY);
+                    integral += 4 * func(intervalX[0] + j * hX, intervalY[0] + i * hY);
                 }
             }
         }
-        this.integral *= hX * hY / 9;
+        integral *= hX * hY / 9;
+        return integral;
     } 
 }

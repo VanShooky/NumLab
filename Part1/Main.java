@@ -16,21 +16,18 @@ public class Main {
         final double eps1 = 1E-4;
         final double eps2 = 1E-5;
 
-        DefiniteIntegral trapezoid = new DefiniteIntegral();
-        trapezoid.trapezoidalIntegration(intervalAB, n, eps1);
-        System.out.printf("По формуле трапеций:\n%.4f", trapezoid.integral);
-        trapezoid.trapezoidalIntegration(intervalAB, n, eps2);
-        System.out.printf("\n%.5f", trapezoid.integral)
-        ;
-        DefiniteIntegral Simpson = new DefiniteIntegral();
-        Simpson.SimpsonIntegration(intervalAB, n, eps1);
-        System.out.printf("\nПо формуле Симпсона:\n%.4f", Simpson.integral);
-        Simpson.SimpsonIntegration(intervalAB, n, eps2);
-        System.out.printf("\n%.5f", Simpson.integral);
+        Double trapezoid = DefiniteIntegral.trapezoidalIntegration(intervalAB, n, eps1);
+        System.out.printf("По формуле трапеций:\n%.4f", trapezoid);
+        trapezoid = DefiniteIntegral.trapezoidalIntegration(intervalAB, n, eps2);
+        System.out.printf("\n%.5f", trapezoid);
 
-        DefiniteIntegral cubatureSimpson = new DefiniteIntegral();
-        cubatureSimpson.cubatureSimpsonRule(intervalX, intervalY, n, m);
-        System.out.printf("\nПо кубатурной формуле Симпсона:\n%.4f", cubatureSimpson.integral);
+        Double Simpson = DefiniteIntegral.SimpsonIntegration(intervalAB, n, eps1);
+        System.out.printf("\nПо формуле Симпсона:\n%.4f", Simpson);
+        Simpson = DefiniteIntegral.SimpsonIntegration(intervalAB, n, eps2);
+        System.out.printf("\n%.5f", Simpson);
+
+        Double cubatureSimpson = DefiniteIntegral.cubatureSimpsonRule(intervalX, intervalY, n, m);
+        System.out.printf("\nПо кубатурной формуле Симпсона:\n%.4f", cubatureSimpson);
 
         
         
