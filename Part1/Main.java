@@ -7,27 +7,40 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final Double[] intervalAB = {0.0, PI / 4};
-        final Double[] intervalX = {0.0, 1.0};
-        final Double[] intervalY = {0.0, 2.0};
+        final double a = 0.0;
+        final double b = PI / 4;
+        final double a1 = 0.0;
+        final double b1 = 1.0;
+        final double c = 0.0;
+        final double d = 2.0;
 
         final int n = 2;
         final int m = 2;
         final double eps1 = 1E-4;
         final double eps2 = 1E-5;
 
-        Double trapezoid = DefiniteIntegral.trapezoidalIntegration(intervalAB, n, eps1);
-        System.out.printf("По формуле трапеций:\n%.4f", trapezoid);
-        trapezoid = DefiniteIntegral.trapezoidalIntegration(intervalAB, n, eps2);
-        System.out.printf("\n%.5f", trapezoid);
+        DefiniteIntegral integral = new DefiniteIntegral(a, b);
+        System.out.printf("По формуле трапеций:\n%.4f", integral.trapezoidalIntegration(n, eps1));
+        System.out.printf("\n%.5f", integral.trapezoidalIntegration(n, eps2));
 
-        Double Simpson = DefiniteIntegral.SimpsonIntegration(intervalAB, n, eps1);
-        System.out.printf("\nПо формуле Симпсона:\n%.4f", Simpson);
-        Simpson = DefiniteIntegral.SimpsonIntegration(intervalAB, n, eps2);
-        System.out.printf("\n%.5f", Simpson);
+        System.out.printf("\nПо формуле Симпсона\n%.4f", integral.SimpsonIntegration(n, eps1));
+        System.out.printf("\n%.5f", integral.SimpsonIntegration(n, eps2));
 
-        Double cubatureSimpson = DefiniteIntegral.cubatureSimpsonRule(intervalX, intervalY, n, m);
-        System.out.printf("\nПо кубатурной формуле Симпсона:\n%.4f", cubatureSimpson);
+        DefiniteIntegral doubleIntegral = new DefiniteIntegral(a1, b1, c, d);
+        System.out.printf("\nПо кубатурной формуле Симпсона:\n%.5f", doubleIntegral.cubatureSimpsonRule(n, m));
+        
+
+        
+
+  
+
+        // Double Simpson = DefiniteIntegral.SimpsonIntegration(intervalAB, n, eps1);
+        // System.out.printf("\nПо формуле Симпсона:\n%.4f", Simpson);
+        // Simpson = DefiniteIntegral.SimpsonIntegration(intervalAB, n, eps2);
+        // System.out.printf("\n%.5f", Simpson);
+
+        // Double cubatureSimpson = DefiniteIntegral.cubatureSimpsonRule(intervalX, intervalY, n, m, eps1);
+        // System.out.printf("\nПо кубатурной формуле Симпсона:\n%.4f", cubatureSimpson);
 
         
         
